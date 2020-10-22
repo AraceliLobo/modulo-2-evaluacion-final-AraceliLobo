@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Searcher Series</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://kit.fontawesome.com/e6b254856a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="icon" href="./assets/images/favicon.png" />
+  </head>
+  <body class="body">
+    <!-- HEADER -->
+    <header class="header">
+      <h1 class="page_title">Searcher series</h1>
+    </header>
+
+    <main class="main">
+      <div class="search-form-container">
+        <form class="search-form js-search-form" action="">
+          <input
+            class="search-input-title js-searchTitle"
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Stranger Things"
+          />
+          <button class="search-btn js-btnSsearch">Search</button>
+        </form>
+      </div>
+      <div class="series-container js-seriesContainer">
+        <ul class="series-list"></ul>
+    </div>
+    </section>
+    <aside class="fav-container hidden js-favContainer">
+        <h2 class="fav-title js-favTitle">My favorites</h2>
+        <button type="button" class="btn-remove-all js-btnRemoveAll">Remove all</button>
+        <ul class="fav-list js-favList"></ul>
+    </aside>
+        </main>
+        <script type="text/javascript" src="./assets/js/main.js"></script>
+  </body>
+</html>
