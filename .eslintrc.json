@@ -20,7 +20,7 @@
     "semi": [2, "always"],
     "eqeqeq": 2,
     "strict": [2, "global"],
-    "no-debugger": 1,
+    "no-debugger": "off",
     "no-console": "off",
     "array-callback-return": 1,
     "block-scoped-var": 1,
