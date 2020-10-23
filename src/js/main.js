@@ -35,7 +35,11 @@ function paintSeries() {
   // Aquí hay que meter algo más??
   for (let show of shows) {
     seriesList.innerHTML += `<li class="serie-item js-item">`;
-    seriesList.innerHTML += `<img class="serie-image js-image" src="${show.show.image.medium}"/>`;
+    if (show.show.image === null) {
+      seriesList.innerHTML += `<img src="./assets/images/noimage.png"/>`;
+    } else {
+      seriesList.innerHTML += `<img class="serie-image js-image" src="${show.show.image.medium}"/>`;
+    }
     seriesList.innerHTML += `<h3 class="serie-name js-name">${show.show.name}</h3>`;
     seriesList.innerHTML += `</li>`;
   }
@@ -44,4 +48,5 @@ function paintSeries() {
 // Escuchador en el botón de buscar (al hacer click conecta con la API)
 btnSearch.addEventListener("click", getShows);
 
+// Simulador de click - lo quitamos al final
 btnSearch.click();

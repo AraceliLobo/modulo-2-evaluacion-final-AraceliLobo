@@ -54,6 +54,9 @@
 }
 .serie-item {
   margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .serie-image {
   width: 195px;
@@ -66,7 +69,15 @@
   width: 195px;
   margin-top: -5px;
   font-family: "Roboto", sans-serif;
+  font-size: 16px;
   color: #e4082b;
   text-align: center;
   background-color: black;
+}
+.fa {
+  font-size: 20px;
+  position: relative;
+  margin-left: 10px;
+  transform: translateY(-290px);
+  color: #e4082b;
 }
