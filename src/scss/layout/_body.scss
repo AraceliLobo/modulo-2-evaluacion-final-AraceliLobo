@@ -43,3 +43,30 @@
   text-align: center;
   color: lightgray;
 }
+.series-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.series-list {
+  list-style: none;
+}
+.serie-item {
+  margin-top: 20px;
+}
+.serie-image {
+  width: 195px;
+  height: 280px;
+  margin: auto;
+  // background-color: royalblue;
+  // border: 1px solid black;
+}
+.serie-name {
+  width: 195px;
+  margin-top: -5px;
+  font-family: "Roboto", sans-serif;
+  color: #e4082b;
+  text-align: center;
+  background-color: black;
+}
