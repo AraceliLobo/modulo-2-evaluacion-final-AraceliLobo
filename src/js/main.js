@@ -75,7 +75,7 @@ function selectFav(event) {
 let favHtml = "";
 function paintFav() {
   favHtml += `<li class="fav-item js-favItem" id="${clickedSerie}">`;
-  favHtml += `<h3 class="favCard__title">${shows[clickedSerie].show.name}</h3>`;
+  favHtml += `<h3 class="fav-name">${shows[clickedSerie].show.name}</h3>`;
   if (shows[clickedSerie].show.image === null) {
     favHtml += `<img class="fav-image js-favImage" src="./assets/images/noimage.png"/>`;
   } else {
