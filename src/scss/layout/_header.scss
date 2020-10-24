@@ -1,11 +1,13 @@
 .header {
+  /* padding-top: 50px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(../assets/images/storm.gif);
+  background-image: url(../images/storm.gif);
 }
-.page_title {
-  // width: 450px;
+.logo {
+  width: 450px;
   padding-top: 60px;
+  filter: drop-shadow(0 0 5px rgb(252, 57, 57));
 }

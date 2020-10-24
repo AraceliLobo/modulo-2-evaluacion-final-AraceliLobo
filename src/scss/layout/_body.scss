@@ -1,14 +1,16 @@
 .body {
   box-sizing: border-box;
   height: 100vh;
-  background-image: url();
+  background-image: url(../images/backgroundweb.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 .main {
   padding-top: 30px;
 }
 .search-form-container {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -33,7 +35,6 @@
   width: 330px;
   height: 40px;
   border-radius: 50px;
-  /* margin-bottom: 20px; */
   outline: none;
   border: none;
   font-family: "Roboto", sans-serif;
@@ -43,41 +44,99 @@
   text-align: center;
   color: lightgray;
 }
-.series-container {
+// bloque de resultados series
+
+.results-container {
+  display: flex;
+  flex-direction: row;
+  // background-color: black;
+  margin-top: 10px;
+}
+// bloque favoritas
+.fav-container {
+  width: 30%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  margin-top: 20px;
+  background-color: black;
+}
+
+.fav-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.1rem;
+  color: white;
+  align-items: center;
+}
+.fa {
+  font-size: 20px;
+  margin-right: 10px;
+
+  color: #e4082b;
+}
+.btn-remove-all {
+  margin-top: 10px;
+  width: 90px;
+  height: 25px;
+  color: white;
+  outline: none;
+  border: solid 2px #e4082b;
+  border-radius: 50px;
+  background: black;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  transition: filter 1s;
+  filter: drop-shadow();
+  &:hover {
+    filter: drop-shadow(0 0 35px rgb(252, 57, 57));
+  }
+  .fav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: colum;
+    justify-content: center;
+    align-items: center;
+  }
+}
+// bloque Lista de series
+.series-container {
+  width: 100vw;
+  height: 100%;
+  margin-top: 20px;
+  padding-left: 15px;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: black;
 }
 .series-list {
   list-style: none;
-}
-.serie-item {
-  margin-top: 20px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+.serie-item {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 8px 8px 8px;
+}
 .serie-image {
-  width: 195px;
-  height: 280px;
-  margin: auto;
-  // background-color: royalblue;
-  // border: 1px solid black;
+  border: 1px solid #e4082b;
 }
 .serie-name {
-  width: 195px;
-  margin-top: -5px;
   font-family: "Roboto", sans-serif;
   font-size: 16px;
   color: #e4082b;
   text-align: center;
   background-color: black;
-}
-.fa {
-  font-size: 20px;
-  position: relative;
-  margin-left: 10px;
-  transform: translateY(-290px);
-  color: #e4082b;
+  border-top: 1px solid #e4082b;
+  border-left: 1px solid #e4082b;
+  border-right: 1px solid #e4082b;
+  width: 210px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
