@@ -91,14 +91,18 @@
   &:hover {
     filter: drop-shadow(0 0 35px rgb(252, 57, 57));
   }
-  .fav-list {
-    list-style: none;
-    display: flex;
-    flex-direction: colum;
-    justify-content: center;
-    align-items: center;
-  }
 }
+.fav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: colum;
+  justify-content: center;
+  align-items: center;
+}
+.fav-name {
+  background-color: white;
+}
+
 // bloque Lista de series
 .series-container {
   width: 100vw;
@@ -122,7 +126,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 8px 8px 8px 8px;
+  padding: 10px 8px 10px 8px;
 }
 .serie-image {
   border: 1px solid #e4082b;
@@ -133,9 +137,7 @@
   color: #e4082b;
   text-align: center;
   background-color: black;
-  border-top: 1px solid #e4082b;
-  border-left: 1px solid #e4082b;
-  border-right: 1px solid #e4082b;
+  border: 1px solid #e4082b;
   width: 210px;
   padding-top: 5px;
   padding-bottom: 5px;
