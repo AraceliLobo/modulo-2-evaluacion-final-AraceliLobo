@@ -34,10 +34,10 @@ function paintSeries() {
   let html = "";
   for (let i = 0; i < shows.length; i++) {
     let classF = "";
-    const favoriteIndex = favorites.findIndex(function (show) {
+    const favouriteIndex = favorites.findIndex(function (show) {
       return show.id === shows[i].show.id;
     });
-    if (favoriteIndex !== -1) {
+    if (favouriteIndex !== -1) {
       classF = "fav-item";
     } else {
       classF = "";
@@ -80,6 +80,7 @@ function listenSeries() {
     serie.addEventListener("click", favoritesSeries);
   }
 }
+setLocalStorage();
 // Función para que las seleccionadas aparezcan en la lista de favoritas
 function paintFavorites() {
   let favHtml = "";
@@ -105,5 +106,18 @@ function paintFavorites() {
 // 4. Escuchador en el botón de buscar (al hacer click conecta con la API)
 btnSearch.addEventListener("click", getShows);
 
+// LocalStorage
+function setLocalStorage() {
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+function getLocalStorage() {
+  const localFavs = localStorage.getItem("favorites");
+  const localFavorites = JSON.parse(favorites);
+  if (localFavorites !== null) {
+    favorites = localFavorites;
+    paintFavorites();
+  }
+}
 // Simulador de click - lo quitamos al final
 // btnSearch.click();
