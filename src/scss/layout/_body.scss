@@ -49,7 +49,6 @@
 .results-container {
   display: flex;
   flex-direction: row;
-  // background-color: black;
   margin-top: 10px;
 }
 // bloque favoritas
@@ -61,13 +60,16 @@
   margin-top: 20px;
   background-color: black;
 }
-
+.fav-item {
+  background-color: #e4082b;
+}
 .fav-title {
   font-family: "Roboto", sans-serif;
   font-size: 20px;
   letter-spacing: 0.1rem;
   color: white;
   align-items: center;
+  margin-top: 10px;
 }
 .fa {
   font-size: 20px;
@@ -129,6 +131,7 @@
   padding: 10px 8px 10px 8px;
 }
 .serie-image {
+  width: 210px;
   border: 1px solid #e4082b;
 }
 .serie-name {

@@ -13,9 +13,6 @@ let shows = [];
 // Array para la lista de favoritas
 let favorites = [];
 
-let clickedSerie;
-listenSerie();
-
 // 3. Petición a la API
 function getShows(ev) {
   ev.preventDefault();
@@ -30,60 +27,59 @@ function getShows(ev) {
       console.log(data);
       // 6. Aquí llamamos a la función pintar series
       paintSeries();
+      listenSeries();
     });
 }
-// 5. Definimos función para que se pinten las series (creamos html)
+// 5. Definimos función para que se pinten las series (creamos html) además añadimos la etiqueta da favorita
 function paintSeries() {
   let html = "";
   for (let i = 0; i < shows.length; i++) {
-    if (shows[i].show.image === null) {
-      html += `<li class="serie-item js-item" id="${[i]}">`;
-      html += `<h3 class= "serie-name js-name">${shows[i].show.name}</h3>`;
-      html += `<img class="serie-image js-image" src="./assets/images/noimage.png"/>`;
-      html += "</li>";
+    let classF = "";
+    const favoriteIndex = favorites.findIndex(function (show, index) {
+      return show.id === shows[i].show.id;
+    });
+    if (favoriteIndex !== -1) {
+      classF = "fav-item";
     } else {
-      html += `<li class="serie-item js-item" id="${[i]}">`;
-      html += `<h3 class="serie-name js-name">${shows[i].show.name}</h3>`;
-      html += `<img clas="serie-image js-image" src="${shows[i].show.image.medium}"/>`;
+      classF = "";
+    }
+    html += `<li class="serie-item js-item ${classF}" id="${shows[i].show.id}">`;
+    html += `<h3 class= "serie-name js-name">${shows[i].show.name}</h3>`;
+    if (shows[i].show.image === null) {
+      html += `<img class="serie-image js-image" src="./assets/images/noimage.png"/>`;
+    } else {
+      html += `<img class="serie-image js-image" src="${shows[i].show.image.medium}"/>`;
       html += "</li>";
     }
     seriesList.innerHTML = html;
   }
 }
-
-// Función para añadir a favoritas
-function listenSerie() {
-  const items = document.querySelectorAll(".js-item");
-  for (const item of items) {
-    item.addEventListener("click", selectFav);
-  }
-}
-// Funciones para seleccionar favoritas
-function selectFav(event) {
-  const clickedSerie = parseInt(event.currentTarget.id);
-  const isFav = favorites.indexOf(clickedSerie);
-  if (isFav === -1) {
-    favList.push(clickedSerie);
-    event.currentTarget.classList.add("fav-item");
-  } else if (isFav > -1) {
-    favorites.splice(isFav, 1);
-    event.currentTarget.classList.remove("fav-item");
-  }
-}
-
-// Función para pintar favoritas
-let favHtml = "";
-function paintFav() {
-  favHtml += `<li class="fav-item js-favItem" id="${clickedSerie}">`;
-  favHtml += `<h3 class="fav-name js-favName">${shows[clickedSerie].show.name}</h3>`;
-  if (shows[clickedSerie].show.image === null) {
-    favHtml += `<img class="fav-image js-favImage" src="./assets/images/noimage.png"/>`;
+function favoritesSeries(ev) {
+  const clicked = parseInt(ev.currentTarget.id);
+  const indexFav = favorites.findIndex(function (show, index) {
+    return show.id === clicked;
+  });
+  const isFavorite = indexFav !== -1;
+  if (isFavorite === true) {
+    favorites.splice(indexFav, 1);
   } else {
-    favHtml += `<img class="fav-image js-favImage" src="${shows[clickedSerie].show.image.medium}"/>`;
+    for (let i = 0; i < shows.length; i++) {
+      if (shows[i].show.id === clicked) {
+        favorites.push(shows[i].show);
+      }
+    }
   }
-  favHtml += "</li>";
-  favList.innerHTML = favHtml;
+  paintSeries();
+  listenSeries();
 }
+
+function listenSeries() {
+  const series = document.querySelectorAll(".js-item");
+  for (const serie of series) {
+    serie.addEventListener("click", favoritesSeries);
+  }
+}
+
 // 4. Escuchador en el botón de buscar (al hacer click conecta con la API)
 btnSearch.addEventListener("click", getShows);
 
