@@ -80,7 +80,6 @@ function listenSeries() {
     serie.addEventListener("click", favoritesSeries);
   }
 }
-setLocalStorage();
 // Función para que las seleccionadas aparezcan en la lista de favoritas
 function paintFavorites() {
   let favHtml = "";
@@ -107,17 +106,17 @@ function paintFavorites() {
 btnSearch.addEventListener("click", getShows);
 
 // LocalStorage
-function setLocalStorage() {
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-}
+// function setLocalStorage() {
+//   localStorage.setItem("favorites", JSON.stringify(favorites));
+// }
 
-function getLocalStorage() {
-  const localFavs = localStorage.getItem("favorites");
-  const localFavorites = JSON.parse(favorites);
-  if (localFavorites !== null) {
-    favorites = localFavorites;
-    paintFavorites();
-  }
-}
+// function getLocalStorage() {
+//   const localFavs = localStorage.getItem("favorites");
+//   const localFavorites = JSON.parse(favorites);
+//   if (localFavorites !== null) {
+//     favorites = localFavorites;
+//     paintFavorites();
+//   }
+// }
 // Simulador de click - lo quitamos al final
-// btnSearch.click();
+btnSearch.click();
