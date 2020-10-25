@@ -16,7 +16,7 @@ let favorites = [];
 function getShows(ev) {
   ev.preventDefault();
   const search = inputSearch.value;
-  fetch(`http://api.tvmaze.com/search/shows?q=${search}`)
+  fetch(`https://api.tvmaze.com/search/shows?q=${search}`)
     .then(function (response) {
       return response.json();
     })
