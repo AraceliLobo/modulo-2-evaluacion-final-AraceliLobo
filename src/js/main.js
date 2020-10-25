@@ -34,7 +34,7 @@ function paintSeries() {
   let html = "";
   for (let i = 0; i < shows.length; i++) {
     let classF = "";
-    const favoriteIndex = favorites.findIndex(function (show, index) {
+    const favoriteIndex = favorites.findIndex(function (show) {
       return show.id === shows[i].show.id;
     });
     if (favoriteIndex !== -1) {
@@ -56,7 +56,7 @@ function paintSeries() {
 // Función para que se marquen como favoritas en la lista de series
 function favoritesSeries(ev) {
   const clicked = parseInt(ev.currentTarget.id);
-  const indexFav = favorites.findIndex(function (show, index) {
+  const indexFav = favorites.findIndex(function (show) {
     return show.id === clicked;
   });
   const isFavorite = indexFav !== -1;
@@ -71,6 +71,7 @@ function favoritesSeries(ev) {
   }
   paintSeries();
   listenSeries();
+  paintFavorites();
 }
 // Función para escuchar cuando hacemos click en una serie
 function listenSeries() {
@@ -83,27 +84,24 @@ function listenSeries() {
 function paintFavorites() {
   let favHtml = "";
   for (let i = 0; i < shows.length; i++) {
-    let classF = "";
-    const favoriteIndex = favorites.findIndex(function (show, index) {
-      return show.id === shows[i].show.id;
-    });
-    if (favoriteIndex !== -1) {
-      classF = "fav-item";
-    } else {
-      classF = "";
-    }
-    favHtml += `<li class="fav-item" id="${shows[i].show.id}">`;
-    favHtml += `<h3 class="fav-name">${shows[i].show.name}</h3>`;
-    if (shows[i].show.image === null) {
+    favHtml += `<li class="fav-item" id="${favorites[i].id}">`;
+    favHtml += `<h3 class="fav-name">${favorites[i].name}</h3>`;
+    if (favorites[i].image === null) {
       favHtml += `<img class="fav-image" src="./assets/images/noimage.png"/>`;
     } else {
-      favHtml += `<img class="fav-image" src="${shows[i].show.image.medium}"/>`;
+      favHtml += `<img class="fav-image" src="${favorites[i].image.medium}"/>`;
     }
     favHtml += "</li>";
 
     favList.innerHTML = favHtml;
   }
 }
+// btnRemove.addEventListener("click", removeAll);
+// Función para quitar favoritas
+// Función para borrar todas las favoritas con el botón
+// function removeAll(ev) {
+//   const btnClicked = parseInt(ev.currentTarget.id);
+
 // 4. Escuchador en el botón de buscar (al hacer click conecta con la API)
 btnSearch.addEventListener("click", getShows);
 
