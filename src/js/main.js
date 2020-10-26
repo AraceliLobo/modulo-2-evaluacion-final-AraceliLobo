@@ -16,7 +16,7 @@ let favorites = [];
 function getShows(ev) {
   ev.preventDefault();
   const search = inputSearch.value;
-  fetch(`http://api.tvmaze.com/search/shows?q=${search}`)
+  fetch(`https://api.tvmaze.com/search/shows?q=${search}`)
     .then(function (response) {
       return response.json();
     })
@@ -26,18 +26,20 @@ function getShows(ev) {
       // 6. Aquí llamamos a la función pintar series
       paintSeries();
       listenSeries();
-      paintFavorites();
+      addFavorites();
+      listenFavorites();
     });
 }
-// 5. Definimos función para que se pinten las series (creamos html) además añadimos la etiqueta da favorita
+btnSearch.addEventListener("click", getShows);
+// 5. Definimos función para que se pinten las series (creamos html)
 function paintSeries() {
   let html = "";
   for (let i = 0; i < shows.length; i++) {
-    let classF = "";
-    const favoriteIndex = favorites.findIndex(function (show) {
+    let classF = "fav-item";
+    const favouriteIndex = favorites.findIndex(function (show, index) {
       return show.id === shows[i].show.id;
     });
-    if (favoriteIndex !== -1) {
+    if (favouriteIndex !== -1) {
       classF = "fav-item";
     } else {
       classF = "";
@@ -51,12 +53,13 @@ function paintSeries() {
       html += "</li>";
     }
     seriesList.innerHTML = html;
+    listenFavorites();
   }
 }
 // Función para que se marquen como favoritas en la lista de series
 function favoritesSeries(ev) {
   const clicked = parseInt(ev.currentTarget.id);
-  const indexFav = favorites.findIndex(function (show) {
+  const indexFav = favorites.findIndex(function (show, index) {
     return show.id === clicked;
   });
   const isFavorite = indexFav !== -1;
@@ -71,7 +74,9 @@ function favoritesSeries(ev) {
   }
   paintSeries();
   listenSeries();
-  paintFavorites();
+  addFavorites();
+  listenFavorites();
+  setLocalStorage();
 }
 // Función para escuchar cuando hacemos click en una serie
 function listenSeries() {
@@ -80,10 +85,10 @@ function listenSeries() {
     serie.addEventListener("click", favoritesSeries);
   }
 }
-// Función para que las seleccionadas aparezcan en la lista de favoritas
-function paintFavorites() {
+// Función para que las seleccionadas se añadan a la lista de favoritas
+function addFavorites() {
   let favHtml = "";
-  for (let i = 0; i < shows.length; i++) {
+  for (let i = 0; i < favorites.length; i++) {
     favHtml += `<li class="fav-item" id="${favorites[i].id}">`;
     favHtml += `<h3 class="fav-name">${favorites[i].name}</h3>`;
     if (favorites[i].image === null) {
@@ -94,16 +99,39 @@ function paintFavorites() {
     favHtml += "</li>";
 
     favList.innerHTML = favHtml;
+    listenFavorites();
   }
 }
-// btnRemove.addEventListener("click", removeAll);
-// Función para quitar favoritas
-// Función para borrar todas las favoritas con el botón
-// function removeAll(ev) {
-//   const btnClicked = parseInt(ev.currentTarget.id);
+function listenFavorites() {
+  const favItems = document.querySelectorAll(".js-favorite-item");
+  for (const favItem of favItems) {
+    // favItem.addEventListener("click", removeFavorites);
+  }
+}
+listenFavorites();
+// Función localStorage para guardar los datos
+const setLocalStorage = () => {
+  const stringData = JSON.stringify(favorites);
+  localStorage.setItem("fav", stringData);
+};
 
-// 4. Escuchador en el botón de buscar (al hacer click conecta con la API)
+// Función localStorage para leer los datos
+
+const getLocalStorage = () => {
+  const stringFav = localStorage.getItem("fav");
+  if (stringFav !== null) {
+    favorites = JSON.parse(stringFav);
+    addFavorites();
+  }
+};
+getLocalStorage();
+
+function removeAll(ev) {}
+
+// Escuchador para que nos de las series
 btnSearch.addEventListener("click", getShows);
+// Escuchador para que borre todo
+btnRemove.addEventListener("click", removeAll);
 
 // Simulador de click - lo quitamos al final
-// btnSearch.click();
+btnSearch.click();
