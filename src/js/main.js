@@ -80,7 +80,6 @@ function favoritesSeries(ev) {
   paintSeries();
   listenSeries();
   addFavorites();
-  //listenFavorites();
   setLocalStorage();
 }
 
@@ -110,10 +109,13 @@ function addFavorites() {
   favList.innerHTML = favHtml;
   listenFavorites();
 }
+
+// Función que escucha cuando se hace click en una serie marcada como favorita
+
 function listenFavorites() {
   const favItems = document.querySelectorAll(".js-favorite-item");
   for (const favItem of favItems) {
-    // favItem.addEventListener("click", removeFav);
+    favItem.addEventListener("click", removeAll);
   }
 }
 listenFavorites();
@@ -136,6 +138,8 @@ const getLocalStorage = () => {
 };
 getLocalStorage();
 
+// Función para borrar todas las series de la lista de favoritas
+
 function removeAll() {
   favorites = [];
   localStorage.removeItem("fav");
@@ -149,6 +153,6 @@ function removeAll() {
 
 btnSearch.addEventListener("click", getShows);
 
+// Escuchador para quitar series de la lista de favoritas
+
 btnRemove.addEventListener("click", removeAll);
-// // Simulador de click
-// btnSearch.click();
