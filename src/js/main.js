@@ -1,18 +1,19 @@
 /* eslint-disable no-unused-vars */
 "use strict";
-// 1. Constantes definidas
+// Constantes definidas
 const inputSearch = document.querySelector(".js-search");
 const seriesList = document.querySelector(".js-seriesList");
 const favList = document.querySelector(".js-favList");
 const btnSearch = document.querySelector(".js-btnSsearch");
 const btnRemove = document.querySelector(".js-btnRemoveAll");
 
-// 2. Array para la lista de series
+// Array para la lista de series
 let shows = [];
 // Array para la lista de favoritas
 let favorites = [];
 
-// 3. Petición a la API
+// Petición a la API
+
 function getShows(ev) {
   ev.preventDefault();
   const search = inputSearch.value;
@@ -23,18 +24,22 @@ function getShows(ev) {
     .then(function (data) {
       // Guardamos los datos recogidos que nos interesan en un nuevo array
       shows = data;
-      // 6. Aquí llamamos a la función pintar series
+      // Aquí llamamos a la función pintar series
       paintSeries();
       listenSeries();
-      paintFavorites();
+      addFavorites();
+      listenFavorites();
     });
 }
-// 5. Definimos función para que se pinten las series (creamos html) además añadimos la etiqueta da favorita
+btnSearch.addEventListener("click", getShows);
+
+// Definimos función para que se pinten las series (creamos html)
+
 function paintSeries() {
   let html = "";
   for (let i = 0; i < shows.length; i++) {
-    let classF = "";
-    const favouriteIndex = favorites.findIndex(function (show) {
+    let classF = "fav-item";
+    const favouriteIndex = favorites.findIndex(function (show, index) {
       return show.id === shows[i].show.id;
     });
     if (favouriteIndex !== -1) {
@@ -50,13 +55,16 @@ function paintSeries() {
       html += `<img class="serie-image js-image" src="${shows[i].show.image.medium}"/>`;
       html += "</li>";
     }
-    seriesList.innerHTML = html;
   }
+  seriesList.innerHTML = html;
+  listenFavorites();
 }
+
 // Función para que se marquen como favoritas en la lista de series
+
 function favoritesSeries(ev) {
   const clicked = parseInt(ev.currentTarget.id);
-  const indexFav = favorites.findIndex(function (show) {
+  const indexFav = favorites.findIndex(function (show, index) {
     return show.id === clicked;
   });
   const isFavorite = indexFav !== -1;
@@ -71,19 +79,25 @@ function favoritesSeries(ev) {
   }
   paintSeries();
   listenSeries();
-  paintFavorites();
+  addFavorites();
+  //listenFavorites();
+  setLocalStorage();
 }
+
 // Función para escuchar cuando hacemos click en una serie
+
 function listenSeries() {
   const series = document.querySelectorAll(".js-item");
   for (const serie of series) {
     serie.addEventListener("click", favoritesSeries);
   }
 }
-// Función para que las seleccionadas aparezcan en la lista de favoritas
-function paintFavorites() {
+
+// Función para que las seleccionadas se añadan a la lista de favoritas
+
+function addFavorites() {
   let favHtml = "";
-  for (let i = 0; i < shows.length; i++) {
+  for (let i = 0; i < favorites.length; i++) {
     favHtml += `<li class="fav-item" id="${favorites[i].id}">`;
     favHtml += `<h3 class="fav-name">${favorites[i].name}</h3>`;
     if (favorites[i].image === null) {
@@ -92,31 +106,49 @@ function paintFavorites() {
       favHtml += `<img class="fav-image" src="${favorites[i].image.medium}"/>`;
     }
     favHtml += "</li>";
-
-    favList.innerHTML = favHtml;
+  }
+  favList.innerHTML = favHtml;
+  listenFavorites();
+}
+function listenFavorites() {
+  const favItems = document.querySelectorAll(".js-favorite-item");
+  for (const favItem of favItems) {
+    // favItem.addEventListener("click", removeFav);
   }
 }
-// btnRemove.addEventListener("click", removeAll);
-// Función para quitar favoritas
-// Función para borrar todas las favoritas con el botón
-// function removeAll(ev) {
-//   const btnClicked = parseInt(ev.currentTarget.id);
+listenFavorites();
 
-// 4. Escuchador en el botón de buscar (al hacer click conecta con la API)
+// Función localStorage para guardar los datos
+
+const setLocalStorage = () => {
+  const stringData = JSON.stringify(favorites);
+  localStorage.setItem("fav", stringData);
+};
+
+// Función localStorage para leer los datos
+
+const getLocalStorage = () => {
+  const stringFav = localStorage.getItem("fav");
+  if (stringFav !== null) {
+    favorites = JSON.parse(stringFav);
+    addFavorites();
+  }
+};
+getLocalStorage();
+
+function removeAll() {
+  favorites = [];
+  localStorage.removeItem("fav");
+  addFavorites();
+  paintSeries();
+  listenSeries();
+  listenFavorites();
+}
+
+// Escuchador para que nos de las series
+
 btnSearch.addEventListener("click", getShows);
 
-// LocalStorage
-// function setLocalStorage() {
-//   localStorage.setItem("favorites", JSON.stringify(favorites));
-// }
-
-// function getLocalStorage() {
-//   const localFavs = localStorage.getItem("favorites");
-//   const localFavorites = JSON.parse(favorites);
-//   if (localFavorites !== null) {
-//     favorites = localFavorites;
-//     paintFavorites();
-//   }
-// }
-// Simulador de click - lo quitamos al final
-btnSearch.click();
+btnRemove.addEventListener("click", removeAll);
+// // Simulador de click
+// btnSearch.click();
