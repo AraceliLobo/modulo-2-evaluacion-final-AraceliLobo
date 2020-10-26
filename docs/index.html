@@ -17,7 +17,7 @@
   </head>
   <body class="body">
     <!-- HEADER -->
-    <header class="header">
+    <header class="header" role="banner">
       <img
         class="logo"
         src="./assets/images/logosearcher.png"
@@ -25,9 +25,9 @@
       />
     </header>
 
-    <main class="main">
+    <main class="main" role="main">
       <div class="search-form-container">
-        <form class="search-form js-search-form" action="">
+        <form class="search-form js-search-form" action="" role="form">
           <input
             class="search-input-title js-search"
             type="text"
@@ -36,11 +36,14 @@
             placeholder="Stranger Things"
             value=""
           />
-          <button class="search-btn js-btnSsearch">Search</button>
+          <button class="search-btn js-btnSsearch" role="search">Search</button>
         </form>
       </div>
       <div class="results-container">
-        <aside class="fav-container hidden js-favContainer">
+        <aside
+          class="fav-container hidden js-favContainer"
+          role="complementary"
+        >
           <h2 class="fav-title js-favTitle">
             <i class="fa fa-heart fav-heart"></i>My favorites
           </h2>
