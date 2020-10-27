@@ -6,7 +6,7 @@ const seriesList = document.querySelector(".js-seriesList");
 const favList = document.querySelector(".js-favList");
 const btnSearch = document.querySelector(".js-btnSsearch");
 const btnRemove = document.querySelector(".js-btnRemoveAll");
-
+const btnLog = document.querySelector(".js-btnLog");
 // Array para la lista de series
 let shows = [];
 // Array para la lista de favoritas
@@ -49,6 +49,7 @@ function paintSeries() {
     }
     html += `<li class="serie-item js-item ${classF}" id="${shows[i].show.id}">`;
     html += `<h3 class= "serie-name js-name">${shows[i].show.name}</h3>`;
+    html += `<p class= "serie-status js-status">${shows[i].show.status}</p> `;
     if (shows[i].show.image === null) {
       html += `<img class="serie-image js-image" src="./assets/images/noimage.png"/>`;
     } else {
@@ -148,7 +149,12 @@ function removeAll() {
   listenSeries();
   listenFavorites();
 }
-
+function clickLog(ev) {
+  for (const favItem of favorites) {
+    console.log(favItem.name);
+  }
+}
+btnLog.addEventListener("click", clickLog);
 // Escuchador para que nos de las series
 
 btnSearch.addEventListener("click", getShows);
